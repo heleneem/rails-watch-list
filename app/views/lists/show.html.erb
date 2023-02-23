@@ -1,0 +1,16 @@
+<h1>List Name:<%= @list.name %></h1>
+<% @list.bookmarks.each do |bookmark| %>
+<%= bookmark.movie.title %>
+<%= link_to "Delete", bookmark_path(bookmark), data:{turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+<% end %>
+
+<h1> FORMULAIRE </h1>
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <%= f.input :comment %>
+  <%= f.association :movie, as: :radio_buttons %>
+  <%= f.submit "Submit", class: "btn btn-warning"%>
+  <%= link_to "Back to Lists", lists_path, class: "btn btn-warning" %>
+<% end %>
+
+<%= link_to "Create a Bookmark", new_list_bookmark_path(@list), class: "btn btn-warning" %>
+<%= link_to "Back to Lists", lists_path, class: "btn btn-warning" %>
